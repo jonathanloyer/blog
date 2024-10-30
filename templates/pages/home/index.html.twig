@@ -1,29 +1,25 @@
 {% extends 'pages/base.html.twig' %}
 
-{% block title %}Blog -Page d'acceuil
+{% block title %}
+	Blog - Page d'accueil
 {% endblock %}
 
 {% block body %}
 	<h1 class="text-indigo-700 text-5xl font-bold text-center">Welcome home !</h1>
-	<div class="flex justify-center items-center bg-gray-100 p-14 rounded-lg shadow-md">
-		<img src="{{ asset('img/6.JPG') }}" alt="img" class="rounded-full w-40 h-40 object-cover shadow-lg">
-	</div>
-	<div class="flex justify-center items-center bg-gray-100">
-		<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-			<form action="/" methods="POST" class="space-y-4">
-				<div>
-					<input type="text" name="email" placeholder="entrez vôtre email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-400" required>
 
-				</div>
-				<div>
-					<textarea name="message" id="msg" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-purple-400" required></textarea>
+	<section class="flex flex-col w-screen max-w-96 bg-neutral-100 p-4 m-auto my-4">
+		{{form_start(contactForm, {"attr":{"class":'flex flex-col gap-4'}})}}
 
-				</div>
-				<button class="bg-purple-400 text-white font-bold py-2 px-4 rounded hover:bg-red-600 transition duration-200 ease-in-out">Envoyer</button>
-			</form>
+		{{form_label(contactForm.email)}}
+		{{form_widget(contactForm.email, { 'attr': {'class': 'p-2 rounded'} }) }}
+		{{form_errors(contactForm.email)}}
 
-		</div>
-	</div>
+		{{form_label(contactForm.message)}}
+		{{form_widget(contactForm.message, { 'attr': {'class': 'p-2 rounded w-full'} }) }}
+		{{form_errors(contactForm.message)}}
 
+		{{form_widget(contactForm.submit, { 'attr': {'class': 'bg-indigo-500 p-2 text-neutral-100 rounded'} }) }}
 
+		{{form_end(contactForm)}}
+	</section>
 {% endblock %}

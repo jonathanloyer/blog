@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Message;
-use App\Repository\MessageRepository;
+use App\Entity\Contact;
+use App\Form\ContactType;
+use App\Repository\ContactRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,32 +13,28 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(Request $req, MessageRepository $repo): Response
+    public function index(Request $req, ContactRepository $repo): Response
     {
-        // je récupére les donnée depuis le corps de la requête
-        $email = $req->request->get('email');
-        $message = $req->request->get('message');
+        $message = new Contact();
 
-        // je valide les données sinon je retourne 400
+        $form = $this->createForm(ContactType::class, $message);
 
-        if (!isset($email) || !isset($message) || $email == "" || $message == ""){
+        $form->handleRequest($req);
 
-            return $this->render('pages/home/index.html.twig', [
-                'controller_name' => 'HomeController',
-            ]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repo->save($message, true);
         }
 
-        // j'utilise mon Entity Message pour créer un nouveau message
-        $newMessage = new Message();
-        $newMessage->setEmail($email);
-        $newMessage->setMessage($message);
-
-        // j'utilise Repository pour enregistrer le message
-        $repo->sauvegarder($newMessage, true);
-        // je retourne le fait que c bien envoyé
-        return $this->render('pages/home/index.html.twig',[
-            'success' => true, 'message' =>"Message Envoyé" ]);
-
+        return $this->render('pages/home/index.html.twig', [
+            "contactForm" => $form
+        ]);
     }
-
 }
+
+// Exercice:
+// 1. Créer le Hero avec image et présentation.
+// 2. Créer un Formulaire avec: email, message (Avec Validation)
+// 3. Afficher le formulaire dans la page d'Accueil.
+// 4. Créer une Entité et son Repository et faites une migration
+// 5. Créer une route pour traiter le formulaire.
+// 6. Enregistrer les données la BD.
