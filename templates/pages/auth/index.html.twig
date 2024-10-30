@@ -1,0 +1,29 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+	Blog - Page d'accueil
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-indigo-700 text-5xl font-bold text-center">Welcome home !</h1>
+
+	<section class="flex flex-col w-screen max-w-96 bg-neutral-100 p-4 m-auto my-4">
+		{{form_start(inscriptionForm, {"attr":{"class":'flex flex-col gap-4'}})}}
+
+		{{form_label(inscriptionForm.email)}}
+		{{form_widget(inscriptionForm.email, { 'attr': {'class': 'p-2 rounded'} }) }}
+		{{form_errors(inscriptionForm.email)}}
+
+		{{form_label(inscriptionForm.username)}}
+		{{form_widget(inscriptionForm.username, { 'attr': {'class': 'p-2 rounded w-full'} }) }}
+		{{form_errors(inscriptionForm.username)}}
+
+        {{form_label(inscriptionForm.password)}}
+		{{form_widget(inscriptionForm.password, { 'attr': {'class': 'p-2 rounded w-full'} }) }}
+		{{form_errors(inscriptionForm.password)}}
+
+		{{form_widget(inscriptionForm.Envoyer, { 'attr': {'class': 'bg-indigo-500 p-2 text-neutral-100 rounded'} }) }}
+
+		{{form_end(inscriptionForm)}}
+	</section>
+{% endblock %}
