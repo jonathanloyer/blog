@@ -9,7 +9,7 @@
     font-family: "roboto",serif;
 }
 .navbar {
-    background-color: purple;
+    background-color: rgb(9, 95, 233);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -36,7 +36,7 @@
         position: absolute;
         left: 0;
         top: 45px;
-        background-color: purple;
+        background-color: rgb(9, 95, 233);
         min-width: 50vw;
         min-height: 50vh;
         padding: 10px;
