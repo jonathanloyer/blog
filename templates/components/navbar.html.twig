@@ -1,0 +1,41 @@
+    <nav class="navbar">
+    {# <div class="img">
+    <li><img src="{{asset('img/6.JPG') }}"alt="logo"></li>
+    </div> #}
+    <div id="navbar-menu-button">
+        <svg width="24" height="24" viewbox="0 0 24 24" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="">
+            <line x1="4" x2="20" y1="12" y2="12"/>
+            <line x1="4" x2="20" y1="6" y2="6"/>
+            <line x1="4" x2="20" y1="18" y2="18"/>
+        </svg>
+    </div>
+
+    <ul id="navbar-menu"style="left:-100%">
+        <li>
+            <a href="/">Accueil</a>
+        </li>
+        <li>
+            <a href="/contact">Contact</a>
+        </li>
+        <li>
+            <a href="/about">A propos</a>
+        </li>
+    </ul>
+</nav>
+
+<script>
+    const menuButton = document.querySelector('#navbar-menu-button');
+
+    menuButton.addEventListener('click', () => {
+        const menu = document.querySelector('#navbar-menu');
+
+        if (menu.style.left == '0%'){
+        console.log("je suis dans le if");
+            menu.style.left = '-100%';
+        }else{
+            menu.style.left = '0%';
+        console.log("je suis dans le else");
+
+        }
+    })
+</script>
