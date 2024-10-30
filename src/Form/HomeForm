@@ -7,9 +7,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-
-
-
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Webmozart\Assert\Assert as AssertAssert;
 
 class HomeForm extends AbstractType
 {
@@ -25,6 +24,15 @@ class HomeForm extends AbstractType
             "constraints" => [
                 new Assert\Email(['message' => 'Email invalid!'])
             ]]
+        )
+        ->add(
+            'message',
+            TextType::class,
+            ['attr' => ['placeholder' => "Entrez votre message"], "contraints"
+            => [
+                new Assert\NotBlank(['message' => 'message obligatoire'])
+            ]]
+            
         )
         ->add(
             'Envoyer',
