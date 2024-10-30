@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class AuthController extends AbstractController
 {
     #[Route('/auth', name: 'app_auth')]
-    public function index(Request $req, UserPasswordHasherInterface $passwordHasher, UserRepository $repo, User $user): Response
+    public function index(Request $req, UserPasswordHasherInterface $passwordHasher, UserRepository $repo): Response
     {
         $user = new User($passwordHasher);
 
@@ -35,6 +35,7 @@ class AuthController extends AbstractController
             $repo->save($user, true);
 
             return $this->render('pages/auth/index.html.twig', [
+                // inscriptionform et lélement que j'injecte pour le mettre dans le form de la twig
                 "inscriptionForm" => $userType,
                 "message" => "vous êtes déjà membre,connectez vous!"
             ]);
