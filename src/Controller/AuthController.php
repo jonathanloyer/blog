@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\User;
+use App\Form\ArticleType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,17 +62,36 @@ class AuthController extends AbstractController
     }
 
     #[Route('/profil', name: 'app_profil')]
-    public function showprofile()
+    function showProfile(Request $req, UserRepository $repo)
     {
-
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('app_auth');
+        if (!$this->isGranted("IS_AUTHENTICATED_FULLY")) {
+            return $this->redirectToRoute('app_signup');
         }
-        return $this->render('pages/profil/index.html.twig');
+
+        $newArticle = new Article();
+        $form = $this->createForm(ArticleType::class, $newArticle);
+
+        $form->handleRequest($req);
+
+        // Récuperer l'utilisateur depuis la DB avec son email
+        $user = $repo->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Donner la date a l'article
+            $newArticle->setDate(new DateTimeImmutable());
+
+
+
+            // Ajouter l'article
+            $user->addArticle($newArticle);
+
+            // Enregistrer dans la DB
+            $repo->save($user, true);
+        }
+
+        return $this->render('pages/profil/index.html.twig', ['articleForm' => $form, "articles" => $user->getArticles()]);
     }
 
     #[Route('/logout', name: 'app_logout')]
-    public function logout() {
-      // Controleur peut etre vide!
-    }
+    public function logout() {}
 }
