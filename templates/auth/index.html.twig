@@ -1,20 +1,54 @@
-<!DOCTYPE html>
+{% extends 'pages/base.html.twig' %}
 
-<title>Hello AuthController!</title>
+{% block title %}
+	Blog - Page de connexion
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<h1 class="text-indigo-700 text-5xl font-bold text-center hidden">Authentifiez vous!</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<section class="flex flex-col w-screen max-w-[500px] bg-neutral-100 p-8 m-auto my-4 rounded drop-shadow-md">
+		<h2 class="text-indigo-700 text-3xl font-bold text-center border-b-2 py-2 mb-8">Inscription</h2>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>D:/symfony/blog/src/Controller/AuthController.php</code></li>
-        <li>Your template at <code>D:/symfony/blog/templates/auth/index.html.twig</code></li>
-    </ul>
-</div>
+		{{form_start(inscriptionForm, {"attr":{"class":'flex flex-col gap-4'}})}}
+
+		{{form_label(inscriptionForm.email)}}
+		{{form_widget(inscriptionForm.email, { attr: {class: 'p-2 rounded'} }) }}
+		<div class="text-red-400 text-md">
+			{{form_errors(inscriptionForm.email)}}
+		</div>
+
+		{{form_label(inscriptionForm.username)}}
+		{{form_widget(inscriptionForm.username, { attr: {class: 'p-2 rounded w-full'} }) }}
+		<div class="text-red-400 text-md">
+			{{form_errors(inscriptionForm.username)}}
+		</div>
+
+		{{form_label(inscriptionForm.password)}}
+		{{form_widget(inscriptionForm.password, { attr: {class: 'p-2 rounded w-full'} }) }}
+		<div class="text-red-600 text-md">
+			{{form_errors(inscriptionForm.password,)}}
+		</div>
+
+		{{form_widget(inscriptionForm.submit, 
+		{ attr: {class: 'bg-indigo-500 p-2 text-neutral-100 rounded hover:bg-indigo-400 transition'} }) }}
+
+
+		{% if message is defined %}
+			<p class="{{message.status == "success" ? "text-green-700" : "text-red-700" }} text-md">
+				{{message.content}}
+			</p>
+		{% endif %}
+
+		{{form_end(inscriptionForm)}}
+	</section>
+
+	<section class="flex flex-col w-screen max-w-[500px] bg-neutral-100 p-8 m-auto my-4 rounded drop-shadow-md">
+		<h2 class="text-indigo-700 text-3xl font-bold text-center border-b-2 py-2 mb-8">Connexion</h2>
+		<form action="/login" method="POST" class="flex flex-col gap-4">
+			<input type="email" name="email" placeholder="Entrez votre email" class="p-2 rounded w-full">
+			<input type="password" name="password" placeholder="Entrez votre mot de passe" class="p-2 rounded w-full">
+			<button>Se connecter</button>
+		</form>
+	</section>
 {% endblock %}

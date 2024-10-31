@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-	Blog - Page d'accueil
+	Blog - Page d'inscription
 {% endblock %}
 
 {% block body %}
@@ -18,12 +18,20 @@
 		{{form_widget(inscriptionForm.username, { 'attr': {'class': 'p-2 rounded w-full'} }) }}
 		{{form_errors(inscriptionForm.username)}}
 
-        {{form_label(inscriptionForm.password)}}
+		{{form_label(inscriptionForm.password)}}
 		{{form_widget(inscriptionForm.password, { 'attr': {'class': 'p-2 rounded w-full'} }) }}
 		{{form_errors(inscriptionForm.password)}}
 
 		{{form_widget(inscriptionForm.Envoyer, { 'attr': {'class': 'bg-indigo-500 p-2 text-neutral-100 rounded'} }) }}
 
 		{{form_end(inscriptionForm)}}
+	</section>
+	<section class="flex flex-col w-screen max-w-[500px] bg-neutral-100 p-8 m-auto my-4 rounded drop-shadow-md">
+		<h2 class="text-indigo-700 text-3xl font-bold text-center border-b-2 py-2 mb-8">Connexion</h2>
+		<form action="/login" method="POST" class="flex flex-col gap-4">
+			<input type="email" name="email" placeholder="Entrez votre email" class="p-2 rounded w-full">
+			<input type="password" name="password" placeholder="Entrez votre mot de passe" class="p-2 rounded w-full">
+			<button>Se connecter</button>
+		</form>
 	</section>
 {% endblock %}

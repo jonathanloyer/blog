@@ -54,6 +54,7 @@ class UserType extends AbstractType
     }
 
     public function configureOptions(OptionsResolver $resolver): void
+    // la data_class c juste pour dire de lier avec la User::class en gros ça permet de faire la liaison
     {
         $resolver->setDefaults([
             'data_class' => User::class,

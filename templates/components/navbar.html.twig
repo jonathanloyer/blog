@@ -12,14 +12,22 @@
 
     <ul id="navbar-menu"style="left:-100%">
         <li>
-            <a href="/">Accueil</a>
+            <a href="/" class="text-lg hover:text-indigo-700">Accueil</a>
+        </li>
+        
+         {% if app.user %}
+        <li>
+            <a href={{'app_profil'}} class="text-lg hover:text-indigo-700">Profile</a>
         </li>
         <li>
-            <a href="/contact">Contact</a>
+            <a href={{'app_logout'}} class="text-lg hover:text-indigo-700">se déconnecter</a>
         </li>
+        {% else %}
         <li>
-            <a href="/about">A propos</a>
+            <a href="/auth">authentification</a>
         </li>
+        {% endif %}
+            
     </ul>
 </nav>
 
@@ -30,11 +38,10 @@
         const menu = document.querySelector('#navbar-menu');
 
         if (menu.style.left == '0%'){
-        console.log("je suis dans le if");
+
             menu.style.left = '-100%';
         }else{
             menu.style.left = '0%';
-        console.log("je suis dans le else");
 
         }
     })
